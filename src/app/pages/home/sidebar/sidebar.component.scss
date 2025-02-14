@@ -1,0 +1,167 @@
+$sidebar-bg: #57606a;
+$text-color: #ffffff;
+$secondary-text: #b5b8bc;
+$border-color: #747d85;
+$input-bg: #464f57;
+$delete-bg: #e1aa99;
+
+.sidebar-container {
+  width: 350px;
+  height: 100vh;
+  background-color: $sidebar-bg;
+  color: $text-color;
+  transition: width 0.3s ease-in-out;
+  position: relative;
+
+  &.closed {
+    @media (max-width: 768px) {
+      width: 40px;
+      position: relative;
+    }
+  }
+
+  @media (max-width: 768px) {
+    position: fixed;
+    transition: width 0.3s ease-in-out;
+    overflow: hidden;
+  }
+}
+
+.sidebar {
+  padding: 50px 25px 0;
+
+  .search-bar {
+    margin: 50px 0 20px;
+    display: flex;
+    align-items: center;
+
+    input {
+      width: 85%;
+      padding: 5px 10px;
+      border-radius: 20px;
+      border: 2px solid $secondary-text;
+      background-color: $input-bg;
+      color: $secondary-text;
+
+      &::placeholder {
+        color: $secondary-text;
+        font-style: italic;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+.search-icon {
+  color: $text-color;
+  cursor: pointer;
+  margin-left: 15px;
+  font-size: 23px;
+}
+
+.sidebar {
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      padding: 10px 10px 5px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      margin-bottom: 5px;
+
+      a {
+        text-decoration: none;
+        color: $text-color;
+        display: block;
+        font-size: 15px;
+      }
+
+      .list-wrapper {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
+  h2 {
+    color: $secondary-text;
+    font-size: 25px;
+    text-align: center;
+    font-weight: 300;
+  }
+
+  .sidebar-list {
+    height: 45vh;
+    border-bottom: 2px solid $border-color;
+    overflow-y: auto;
+  }
+}
+
+.circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid $text-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  cursor: pointer;
+
+  .second-circle {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: $text-color;
+  }
+
+  i {
+    color: $text-color;
+  }
+}
+
+.delete-icon {
+  background: $delete-bg;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  i {
+    color: $text-color;
+    font-size: 16px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .sidebar-container.closed {
+    ul li,
+    app-add-news,
+    h2,
+    .search-bar {
+      display: none;
+    }
+  }
+
+  .burger-menu {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: $text-color;
+    cursor: pointer;
+    z-index: 1000;
+  }
+}

@@ -1,0 +1,40 @@
+<div class="add-news-container">
+  <h2>Add a new feed</h2>
+
+  <form [formGroup]="urlForm">
+    <div class="form-group">
+      <input
+        type="text"
+        id="title"
+        placeholder="Type your feed name..."
+        formControlName="title"
+      />
+      <small
+        class="error"
+        *ngIf="urlForm.get('title')?.invalid && urlForm.get('title')?.touched"
+      >
+        Title must be between 3 and 15 characters
+      </small>
+    </div>
+
+    <div class="form-group">
+      <input
+        type="text"
+        id="url"
+        placeholder="Copy your feed RSS url..."
+        formControlName="url"
+      />
+      <small
+        class="error"
+        *ngIf="urlForm.get('url')?.invalid && urlForm.get('url')?.touched"
+      >
+        Please enter a valid URL
+      </small>
+    </div>
+
+    <button type="submit" (click)="addNewUrl()" [disabled]="urlForm.invalid">
+      Add feed
+    </button>
+  </form>
+  <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+</div>

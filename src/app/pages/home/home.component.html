@@ -1,0 +1,11 @@
+<div class="home-container" [class.sidebar-collapsed]="isSidebarCollapsed">
+  <app-sidebar
+    [preselectedIds]="selectedIds"
+    (selectionChange)="updateSelectedIds($event)"
+    (searchChange)="updateSearchText($event)"
+  ></app-sidebar>
+
+  <div class="news-list-container">
+    <app-news-item [items]="filteredItems"> </app-news-item>
+  </div>
+</div>

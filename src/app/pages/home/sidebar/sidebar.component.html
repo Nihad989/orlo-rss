@@ -1,0 +1,41 @@
+<div
+  class="sidebar-container"
+  [class.closed]="isClosed"
+  [class.mobile]="isMobile"
+>
+  <div class="sidebar">
+    <h2>Content Generator</h2>
+    <div class="search-bar">
+      <input
+        type="text"
+        placeholder="Filter your feeds..."
+        [(ngModel)]="searchText"
+        (input)="onSearchChange()"
+      />
+      <i class="fas fa-search search-icon"></i>
+    </div>
+    <ul class="sidebar-list">
+      <li *ngFor="let site of siteNames">
+        <div class="list-wrapper">
+          <div class="circle" (click)="toggleSelection(site.id)">
+            <i
+              class="fas"
+              [ngClass]="{
+                'second-circle': selectedIds.includes(site.id)
+              }"
+            ></i>
+          </div>
+          <a>{{ site.title }}</a>
+        </div>
+
+        <div class="delete-icon" (click)="deleteSite(site.id)">
+          <i class="fas fa-times"></i>
+        </div>
+      </li>
+    </ul>
+    <app-add-news></app-add-news>
+  </div>
+  <button *ngIf="isMobile" class="burger-menu" (click)="toggleSidebar()">
+    ☰
+  </button>
+</div>
