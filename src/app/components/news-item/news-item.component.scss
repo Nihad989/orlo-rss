@@ -3,10 +3,11 @@ $primary-text: #ffffff;
 $accent-color: #5799c7;
 $secondary-text: #a5a6a7;
 $content-text: #626465;
+$link-color: #007bff;
 
 .news-card {
   background: white;
-  max-height: 600px;
+  max-height: 500px;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -57,6 +58,7 @@ $content-text: #626465;
 .news-content {
   padding: 15px;
   background-color: $primary-text;
+  overflow: hidden;
 
   h3 {
     font-size: 18px;
@@ -74,14 +76,40 @@ $content-text: #626465;
 
 .news-image {
   width: 100%;
+  max-height: 200px;
   object-fit: cover;
 }
 
 .news-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 15px;
-  padding: 25px;
-  grid-auto-flow: dense;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(280px, 1fr)
+  ); /* Dynamic column width */
+  gap: 10px; /* Smaller gaps */
+  padding: 20px;
+  grid-auto-flow: dense; /* Helps fill gaps */
   align-items: start;
+  height: 100vh;
+  overflow: auto;
+  transition: all 0.2s ease-in-out;
+}
+
+.suggestions {
+  h3 {
+    margin: 20px 0;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+}
+
+.suggestions li {
+  font-size: 16px;
+  margin: 5px 0;
+  color: $link-color;
+  font-weight: bold;
+  word-break: break-all;
 }

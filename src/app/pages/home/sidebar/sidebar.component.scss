@@ -46,10 +46,13 @@ $delete-bg: #e1aa99;
       &::placeholder {
         color: $secondary-text;
         font-style: italic;
+        border-left: 1px solid $secondary-text;
+        padding-left: 1px;
       }
 
       &:focus {
         outline: none;
+        box-shadow: 0 0 0 2px $secondary-text;
       }
     }
   }
@@ -141,7 +144,6 @@ $delete-bg: #e1aa99;
     font-size: 16px;
   }
 }
-
 
 @media (max-width: 768px) {
   .sidebar-container.closed {

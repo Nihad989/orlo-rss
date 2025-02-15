@@ -5,7 +5,14 @@
 }
 
 .news-list-container {
+  // height: 100vh;
+  // width: 100vw;
+  // overflow-y: auto;
   height: 100vh;
-  width: 100vw;
+}
+
+app-news-item {
   overflow-y: auto;
+
+  width: 100vw;
 }

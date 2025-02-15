@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
-import { News } from 'src/app/models/news.model';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormControl,
-} from '@angular/forms';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { RssService } from '../../services/rss.service';
+
 @Component({
   selector: 'app-add-news',
   templateUrl: './add-news.component.html',
@@ -33,7 +28,7 @@ export class AddNewsComponent {
   }
   addNewUrl() {
     if (this.urlForm.valid) {
-      this.errorMessage = ''; // Reset error
+      this.errorMessage = '';
 
       const newUrlData = {
         id: this.generateUniqueId(),
@@ -43,7 +38,7 @@ export class AddNewsComponent {
 
       this.rssService.addUrl(newUrlData).subscribe({
         next: () => {
-          this.urlForm.reset(); // ✅ Reset form
+          this.urlForm.reset();
         },
         error: (error) => {
           this.errorMessage = 'Invalid URL! Please check and try again.';

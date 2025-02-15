@@ -1,16 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
-
-// { site: 'BBC', url: 'http://feeds.bbci.co.uk/news/rss.xml', id: 1 },
-// { site: 'CNN', url: 'http://rss.cnn.com/rss/edition.rss', id: 2 },
-// { site: 'TechCrunch', url: 'https://techcrunch.com/feed/', id: 3 }
-
-interface UrlData {
-  id: number;
-  title: string;
-  url: string;
-}
+import { UrlData, RssItem, RssResponse } from '../models/rss.model';
 
 @Injectable({
   providedIn: 'root',
@@ -77,7 +68,6 @@ export class RssService {
       .getValue()
       .filter((item) => item.id !== id);
 
-
     this.rssDataSubject.next(updatedData);
   }
 
@@ -85,9 +75,9 @@ export class RssService {
     const url = newData.url;
 
     this.http
-      .get(`${this.rssToJsonUrl}${encodeURIComponent(url)}`)
-      .subscribe((response: any) => {
-        const updatedResponse = response.items.map((item: any) =>
+      .get<RssResponse>(`${this.rssToJsonUrl}${encodeURIComponent(url)}`)
+      .subscribe((response: RssResponse) => {
+        const updatedResponse = response.items.map((item: RssItem) =>
           this.transformItem(item, newData)
         );
 
@@ -100,14 +90,14 @@ export class RssService {
       });
   }
 
-  private transformItem(item: any, newData: UrlData) {
+  private transformItem(item: RssItem, newData: UrlData) {
     return {
       id: newData.id,
       site: newData.title,
       title: item.title || '',
       content: item.content || item.description || '',
       link: item.link || '',
-      pubDate: new Date(item.pubDate),
+      pubDate: item.pubDate ? new Date(item.pubDate) : new Date(),
       image: item.enclosure?.link || item.thumbnail || '',
     };
   }

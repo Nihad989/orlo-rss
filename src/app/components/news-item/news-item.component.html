@@ -2,16 +2,34 @@
   class="news-grid"
   #newsGrid
   infiniteScroll
-  [infiniteScrollDistance]="1"
-  [infiniteScrollThrottle]="300"
+  [infiniteScrollContainer]="newsGrid"
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="200"
   (scrolled)="loadMoreNews()"
 >
+  <div *ngIf="displayedNews.length === 0" class="no-news-container">
+    <p>No news items available at the moment. Please check back later.</p>
+
+    <div class="suggestions">
+      <h3>🔍 Suggested News Sources</h3>
+      <p>Copy and paste these sources into your feed:</p>
+
+      <ul>
+        <li *ngFor="let source of suggestedSources">
+          {{ source }}
+        </li>
+      </ul>
+
+      <p>Or add your own favorite news source!</p>
+    </div>
+  </div>
+
   <div class="news-card" *ngFor="let item of displayedNews">
     <div class="news-header">
       <a [href]="item.link" target="_blank">
-        <span class="news-source"
-          ><i class="fas fa-external-link-alt"></i>{{ item.site }}</span
-        >
+        <span class="news-source">
+          <i class="fas fa-external-link-alt"></i>{{ item.site }}
+        </span>
         <span class="news-date">{{
           item.pubDate | date : "MMM d y | HH:mm"
         }}</span>
@@ -21,15 +39,12 @@
       <img
         *ngIf="item.image"
         [src]="item.image"
-        alt="item.title"
+        alt="{{ item.title }}"
         class="news-image"
       />
     </div>
-
     <div class="news-content">
-      <h3>
-        {{ item.title }}
-      </h3>
+      <h3>{{ item.title }}</h3>
       <p>
         {{
           (item.content | slice : 0 : 102) +

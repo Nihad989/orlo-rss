@@ -1,5 +1,5 @@
 import { Component, Output } from '@angular/core';
-import { News } from 'src/app/models/news.model';
+import { Item } from 'src/app/models/rss.model';
 import { RssService } from 'src/app/services/rss.service';
 
 @Component({
@@ -11,8 +11,8 @@ export class HomeComponent {
   isSidebarCollapsed = false;
   selectedIds: number[] = [];
   searchText: string = '';
-  selectedNews: News[] = this.filteredItems;
-  @Output() rssFeeds: any[] = [];
+  selectedNews: Item[] = this.filteredItems;
+  @Output() rssFeeds: Item[] = [];
 
   toggleSidebar(collapsed: boolean) {
     this.isSidebarCollapsed = collapsed;

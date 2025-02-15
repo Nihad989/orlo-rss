@@ -31,10 +31,13 @@ $error-color: #ff4d4d;
     &::placeholder {
       font-style: italic;
       color: $border-color;
+      border-left: 1px solid $border-color;
+      padding-left: 1px;
     }
 
     &:focus {
       outline: none;
+      box-shadow: 0 0 0 2px $border-color;
     }
   }
 

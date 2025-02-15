@@ -5,6 +5,7 @@ import {
   HostListener,
   Input,
 } from '@angular/core';
+import { UrlData } from 'src/app/models/rss.model';
 import { RssService } from 'src/app/services/rss.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class SidebarComponent {
   @Input() preselectedIds: number[] = [];
   @Output() selectionChange = new EventEmitter<number[]>();
   @Output() searchChange = new EventEmitter<string>();
-  siteNames: any[] = [];
+  siteNames: UrlData[] = [];
   selectedIds: number[] = [];
   searchText: string = '';
 
@@ -51,6 +52,15 @@ export class SidebarComponent {
   }
   deleteSite(siteId: number) {
     this.rssService.removeUrl(siteId);
+
+    if (this.selectedIds.includes(siteId)) {
+      this.selectedIds = this.selectedIds.filter((id) => id !== siteId);
+
+      this.selectionChange.emit(this.selectedIds);
+    }
+
+    this.searchText = '';
+    this.searchChange.emit(this.searchText);
   }
 
   toggleSidebar() {
