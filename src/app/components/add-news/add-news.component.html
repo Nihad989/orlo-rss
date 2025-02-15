@@ -8,6 +8,8 @@
         id="title"
         placeholder="Type your feed name..."
         formControlName="title"
+        (click)="$event.stopPropagation()"
+        (focus)="$event.stopPropagation()"
       />
       <small
         class="error"
@@ -23,6 +25,8 @@
         id="url"
         placeholder="Copy your feed RSS url..."
         formControlName="url"
+        (click)="$event.stopPropagation()"
+        (focus)="$event.stopPropagation()"
       />
       <small
         class="error"

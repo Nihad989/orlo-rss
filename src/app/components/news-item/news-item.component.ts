@@ -25,7 +25,6 @@ export class NewsItemComponent implements OnInit, AfterViewInit {
   suggestedSources: string[] = [
     'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
     'https://feeds.bbci.co.uk/news/rss.xml',
-    'https://www.aljazeera.com/xml/rss/all.xml',
   ];
 
   constructor(private cdr: ChangeDetectorRef) {}
