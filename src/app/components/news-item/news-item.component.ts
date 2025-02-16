@@ -53,21 +53,20 @@ export class NewsItemComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.items.length === 0) {
-      this.displayedNews = [];
-      return;
-    }
-    if (changes['items'] && this.items.length > 0) {
-      if (
-        JSON.stringify(changes['items'].previousValue) ===
-        JSON.stringify(changes['items'].currentValue)
-      ) {
+    if (changes['items']) {
+      const previousItems = changes['items'].previousValue;
+      const currentItems = changes['items'].currentValue;
+
+      if (!currentItems || currentItems.length === 0) {
+        this.displayedNews = [];
         return;
       }
 
-      this.displayedNews = [];
-      this.currentPage = 0;
-      this.loadMoreNews();
+      if (JSON.stringify(previousItems) !== JSON.stringify(currentItems)) {
+        this.displayedNews = [];
+        this.currentPage = 0;
+        this.loadMoreNews();
+      }
     }
   }
 
