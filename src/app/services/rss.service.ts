@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { UrlData, RssItem, RssResponse } from '../models/rss.model';
+import { RssItemTransformer } from '../utils/rss-item-transformer';
 
 @Injectable({
   providedIn: 'root',
@@ -78,7 +79,7 @@ export class RssService {
       .get<RssResponse>(`${this.rssToJsonUrl}${encodeURIComponent(url)}`)
       .subscribe((response: RssResponse) => {
         const updatedResponse = response.items.map((item: RssItem) =>
-          this.transformItem(item, newData)
+          RssItemTransformer.transform(item, newData)
         );
 
         const currentData = this.rssDataSubject.getValue();
@@ -88,17 +89,5 @@ export class RssService {
 
         this.rssDataSubject.next(sortedData);
       });
-  }
-
-  private transformItem(item: RssItem, newData: UrlData) {
-    return {
-      id: newData.id,
-      site: newData.title,
-      title: item.title || '',
-      content: item.content || item.description || '',
-      link: item.link || '',
-      pubDate: item.pubDate ? new Date(item.pubDate) : new Date(),
-      image: item.enclosure?.link || item.thumbnail || '',
-    };
   }
 }
