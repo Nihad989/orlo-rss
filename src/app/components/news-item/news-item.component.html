@@ -2,7 +2,7 @@
   <p>No news available at the moment. Please check back later.</p>
 
   <div class="suggestions">
-    <h3>🔍 Suggested News Sources</h3>
+    <h3>Suggested News Sources</h3>
     <p>Copy and paste these sources into your feed:</p>
 
     <ul>
@@ -14,7 +14,6 @@
     <p>Or add your own favorite news source!</p>
   </div>
 </div>
-
 <div
   class="news-grid"
   #newsGrid
@@ -23,6 +22,7 @@
   [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="200"
   (scrolled)="loadMoreNews()"
+  *ngIf="displayedNews.length > 0"
 >
   <div class="news-card" *ngFor="let item of displayedNews">
     <div class="news-header">

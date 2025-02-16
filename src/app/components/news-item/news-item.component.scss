@@ -89,7 +89,7 @@ $link-color: #007bff;
   padding: 20px;
   grid-auto-flow: dense;
   align-items: start;
-
+  height: 100dvh;
   overflow: auto;
   transition: all 0.2s ease-in-out;
 }
@@ -113,5 +113,11 @@ $link-color: #007bff;
     color: $link-color;
     font-weight: bold;
     word-break: break-all;
+  }
+}
+
+@media (max-width: 768px) {
+  .news-grid {
+    height: calc(100dvh - 50px);
   }
 }

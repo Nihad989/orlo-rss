@@ -1,8 +1,4 @@
-<div
-  class="sidebar-container"
-  [class.closed]="isClosed"
-  [class.mobile]="isMobile"
->
+<div class="sidebar-container" [class.closed]="isClosed">
   <div class="sidebar">
     <h2>Content Generator</h2>
     <div class="search-bar">
@@ -11,8 +7,6 @@
         placeholder="Filter your feeds..."
         [(ngModel)]="searchText"
         (input)="onSearchChange()"
-        (click)="$event.stopPropagation()"
-        (focus)="$event.stopPropagation()"
       />
       <i class="fas fa-search search-icon"></i>
     </div>

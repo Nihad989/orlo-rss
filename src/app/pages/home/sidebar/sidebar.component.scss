@@ -7,23 +7,24 @@ $delete-bg: #e1aa99;
 
 .sidebar-container {
   width: 350px;
-  height: 100vh;
+  height: 100dvh;
   background-color: $sidebar-bg;
   color: $text-color;
-  transition: width 0.3s ease-in-out;
   position: relative;
-
-  &.closed {
-    @media (max-width: 768px) {
-      width: 40px;
-      position: relative;
-    }
-  }
 
   @media (max-width: 768px) {
     position: fixed;
-    transition: width 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     overflow: hidden;
+  }
+
+  &.closed {
+    @media (max-width: 768px) {
+      position: relative;
+      top: 0;
+      height: 50px;
+      width: 100dvw;
+    }
   }
 }
 
@@ -42,6 +43,7 @@ $delete-bg: #e1aa99;
       border: 2px solid $secondary-text;
       background-color: $input-bg;
       color: $secondary-text;
+      font-size: 16px;
 
       &::placeholder {
         color: $secondary-text;
@@ -82,7 +84,7 @@ $delete-bg: #e1aa99;
         text-decoration: none;
         color: $text-color;
         display: block;
-        font-size: 15px;
+        font-size: 16px;
       }
 
       .list-wrapper {
@@ -100,7 +102,7 @@ $delete-bg: #e1aa99;
   }
 
   .sidebar-list {
-    height: 45vh;
+    height: 45dvh;
     border-bottom: 2px solid $border-color;
     overflow-y: auto;
   }
@@ -146,6 +148,17 @@ $delete-bg: #e1aa99;
 }
 
 @media (max-width: 768px) {
+  .sidebar {
+    padding: 25px;
+  }
+  .sidebar-container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100dvh;
+    overflow: auto;
+    width: 100dvw;
+  }
   .sidebar-container.closed {
     ul li,
     app-add-news,
@@ -157,11 +170,11 @@ $delete-bg: #e1aa99;
 
   .burger-menu {
     position: absolute;
-    top: 10px;
+    top: 5px;
     right: 10px;
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: 30px;
     color: $text-color;
     cursor: pointer;
     z-index: 1000;

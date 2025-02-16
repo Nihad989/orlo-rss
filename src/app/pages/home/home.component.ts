@@ -14,10 +14,6 @@ export class HomeComponent {
   selectedNews: Item[] = this.filteredItems;
   @Output() rssFeeds: Item[] = [];
 
-  toggleSidebar(collapsed: boolean) {
-    this.isSidebarCollapsed = collapsed;
-  }
-
   constructor(private rssService: RssService) {}
 
   ngOnInit() {

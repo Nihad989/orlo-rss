@@ -1,10 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Output,
-  HostListener,
-  Input,
-} from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 import { UrlData } from 'src/app/models/rss.model';
 import { RssService } from 'src/app/services/rss.service';
 
@@ -13,11 +7,12 @@ import { RssService } from 'src/app/services/rss.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   @Output() sidebarToggled = new EventEmitter<boolean>();
   @Input() preselectedIds: number[] = [];
   @Output() selectionChange = new EventEmitter<number[]>();
   @Output() searchChange = new EventEmitter<string>();
+
   siteNames: UrlData[] = [];
   selectedIds: number[] = [];
   searchText: string = '';
@@ -25,22 +20,36 @@ export class SidebarComponent {
   isClosed = false;
   isMobile = false;
 
-  constructor(private rssService: RssService) {
-    this.checkScreenSize();
+  constructor(private rssService: RssService) {}
+
+  ngOnInit() {
+    this.detectMobile();
+
+    this.rssService.urlList$.subscribe((data) => {
+      this.siteNames = data;
+    });
+    this.selectedIds = [...this.preselectedIds];
   }
 
-  @HostListener('window:resize', [])
-  checkScreenSize() {
-    this.isMobile = window.innerWidth <= 768;
+  detectMobile() {
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    this.isMobile = mediaQuery.matches;
+
     if (this.isMobile) {
       this.isClosed = true;
-    } else {
-      this.isClosed = false;
     }
+
+    mediaQuery.addEventListener('change', (event) => {
+      this.isMobile = event.matches;
+      if (this.isMobile) {
+        this.isClosed = true;
+      }
+    });
   }
 
-  rssSites: { site: string; url: string; id: number }[] = [];
-  newSite: string = '';
+  toggleSidebar() {
+    this.isClosed = !this.isClosed;
+  }
 
   toggleSelection(id: number) {
     if (this.selectedIds.includes(id)) {
@@ -50,12 +59,12 @@ export class SidebarComponent {
     }
     this.selectionChange.emit(this.selectedIds);
   }
+
   deleteSite(siteId: number) {
     this.rssService.removeUrl(siteId);
 
     if (this.selectedIds.includes(siteId)) {
       this.selectedIds = this.selectedIds.filter((id) => id !== siteId);
-
       this.selectionChange.emit(this.selectedIds);
     }
 
@@ -63,18 +72,7 @@ export class SidebarComponent {
     this.searchChange.emit(this.searchText);
   }
 
-  toggleSidebar() {
-    this.isClosed = !this.isClosed;
-  }
-
   onSearchChange() {
     this.searchChange.emit(this.searchText);
-  }
-
-  ngOnInit() {
-    this.rssService.urlList$.subscribe((data) => {
-      this.siteNames = data;
-    });
-    this.selectedIds = [...this.preselectedIds];
   }
 }

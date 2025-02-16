@@ -4,7 +4,6 @@ import {
   OnInit,
   ChangeDetectorRef,
   SimpleChanges,
-  AfterViewInit,
 } from '@angular/core';
 import { ElementRef, ViewChild } from '@angular/core';
 import { Item } from 'src/app/models/rss.model';
@@ -14,9 +13,10 @@ import { Item } from 'src/app/models/rss.model';
   templateUrl: './news-item.component.html',
   styleUrls: ['./news-item.component.scss'],
 })
-export class NewsItemComponent implements OnInit, AfterViewInit {
+export class NewsItemComponent implements OnInit {
   @Input() items: Item[] = [];
   @ViewChild('newsGrid', { static: false }) newsGrid!: ElementRef;
+
   displayedNews: Item[] = [];
   itemsPerPage = 30;
   currentPage = 0;
@@ -49,10 +49,8 @@ export class NewsItemComponent implements OnInit, AfterViewInit {
       if (!this.masonryInitialized) {
         this.applyMasonryLayout();
       }
-    }, 300);
+    }, 500);
   }
-
-  ngAfterViewInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.items.length === 0) {

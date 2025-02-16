@@ -10,7 +10,7 @@ $error-color: #ff4d4d;
 
   h2 {
     color: $text-color;
-    font-size: 15px;
+    font-size: 18px;
     text-align: center;
     font-weight: 500;
     margin-bottom: 25px;
@@ -27,6 +27,7 @@ $error-color: #ff4d4d;
     border: 2px solid $border-color;
     background-color: $form-bg;
     color: $border-color;
+    font-size: 16px;
 
     &::placeholder {
       font-style: italic;
@@ -49,6 +50,7 @@ $error-color: #ff4d4d;
     color: $text-color;
     background-color: $button-bg;
     font-weight: 500;
+    font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 
@@ -59,7 +61,7 @@ $error-color: #ff4d4d;
 
   .error-message {
     margin-top: 10px;
-    color: $error-color; // Optional error color
+    color: $error-color;
     font-size: 14px;
   }
 }
