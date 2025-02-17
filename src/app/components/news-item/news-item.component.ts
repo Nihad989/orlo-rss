@@ -46,7 +46,6 @@ export class NewsItemComponent implements OnInit {
     this.currentPage++;
     setTimeout(() => {
       this.cdr.detectChanges();
-      console.log(this.cdr, 'aaaaa');
       if (!this.masonryInitialized) {
         this.applyMasonryLayout();
       }
