@@ -46,6 +46,7 @@ export class NewsItemComponent implements OnInit {
     this.currentPage++;
     setTimeout(() => {
       this.cdr.detectChanges();
+      console.log(this.cdr, 'aaaaa');
       if (!this.masonryInitialized) {
         this.applyMasonryLayout();
       }
@@ -69,13 +70,18 @@ export class NewsItemComponent implements OnInit {
       }
     }
   }
+  ngAfterViewInit() {
+    window.addEventListener('resize', () => {
+      setTimeout(() => this.applyMasonryLayout(), 300);
+    });
+  }
 
   applyMasonryLayout() {
     if (!this.newsGrid || !this.newsGrid.nativeElement) return;
     if (!this.displayedNews.length) return;
 
     const gridItems = this.newsGrid.nativeElement.children;
-    const rowHeight = 20;
+    const rowHeight = 19.5;
 
     Array.from(gridItems).forEach((item: any) => {
       const contentHeight = item.getBoundingClientRect().height;

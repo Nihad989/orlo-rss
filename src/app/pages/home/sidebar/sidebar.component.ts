@@ -8,7 +8,6 @@ import { RssService } from 'src/app/services/rss.service';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-  @Output() sidebarToggled = new EventEmitter<boolean>();
   @Input() preselectedIds: number[] = [];
   @Output() selectionChange = new EventEmitter<number[]>();
   @Output() searchChange = new EventEmitter<string>();
